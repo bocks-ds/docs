@@ -20,31 +20,15 @@ class RelationshipsDoc {
     }
 
     get_relationships_doc() {
-        let relationships_doc = ''
-        let rel_type = ''
+        if (env.associativeTables.length < 1) { return ''}
+
+        let relationships_doc = '=============\nRelationships\n=============\n'
 
         Object.keys(env.associativeTables).sort().forEach((table) => {
-            relationships_doc = relationships_doc == '' ? relationships_doc : `${relationships_doc}\n\n`
-            let association = env.associativeTables[table]
-            relationships_doc = `${relationships_doc}${table}\n${'='.repeat(table.length)}\n`
-            if (association["direct"]) {
-                rel_type = "many-to-one"
-            } else if (association["junction_target"]){
-                rel_type = "many-to-many"
-            } else {
-                rel_type = "one-to-many"
-            }
-            relationships_doc = `${relationships_doc}This describes a ${rel_type} relationship.\n\n\n`
-
-            Object.keys(association).forEach((entry) => {
-                if (entry == "supported_tables"){
-                    relationships_doc = `${relationships_doc}\nThe ID from this table is referenced in these tables:`
-                    association[entry].forEach((data) => {
-                        relationships_doc = `${relationships_doc}\n    - ${data}`
-                    })
-                }
-            })
+            let association = new Association(table)
+            relationships_doc = `${relationships_doc}${association.output()}\n`
         })
+
         return relationships_doc
     }
 
@@ -70,10 +54,46 @@ class RelationshipsDoc {
     }
 }
 
-function get_structure_doc(name) {
-    structure_doc = ''
+class Association {
 
-    return structure_doc
-}
+    constructor(table_name){
+        this.name = table_name
+        this.data = env.associativeTables[table_name]
+        this._set_references()
+    }
+
+    output() {
+        let output = `${this._title()}\nThis is a **${this._rel_type()}** relationship.\n\n`
+        if (this.references_this)
+            output = `${output}This table is referenced by: \n\t- ${this._references_this()}\n`
+        if (this.joins_to)
+            output = `${output}This table joins to the table **${this.joins_to}**\n`
+        return `${output}\n-----\n`
+    }
+
+    _title() {
+        return `${this.name}\n${'*'.repeat(this.name.length)}\n`
+    }
+
+    _rel_type() {
+        if (this.data["direct"])
+            return "many-to-one"
+        else if (this.data["junction_target"])
+            return "many-to-many"
+        return "one-to-many"
+    }
+
+    _set_references() {
+        this.references_this = this.data["supported_tables"]
+        // DataSource may do well to refactor junction_target to use keypairs, ie. {from: to}
+        if (this.data["junction_target"])
+            this.joins_to = this.data["junction_target"]
+    }
+
+    _references_this() {
+        return this.references_this.join('\n\t- ')
+    }
+}   
+
 
 test = new RelationshipsDoc()
