@@ -1,4 +1,9 @@
 
 RelationshipsDoc = require('relationships_doc')
+ObjectsDoc = require('objects_doc')
+TablesDoc = require('tables_doc')
 
-new RelationshipsDoc()
+
+const SOURCEDIR = '/code/docs/source'
+
+new RelationshipsDoc(SOURCEDIR)
