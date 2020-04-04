@@ -10,7 +10,8 @@ Welcome to DataSource's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   Relationships
+   structures
+   relationships
 
 Indices and tables
 ==================

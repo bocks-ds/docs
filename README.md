@@ -16,7 +16,7 @@
         docker rm -fv dummy
     ```
 1. Run this to update docs according to JSON content.
-    `$ docker run -it --mount type=bind,source=<DEV-DIR>/docs,target=/code/docs`
+    `$ docker run -it --mount type=bind,source=<DEV-DIR>/docs,target=/code/docs <IMAGE-NAME>`
 1. Commit changes to git repo after updating.
 
 
