@@ -1,7 +1,10 @@
+.. _structures:
+.. _relationships:
+
 Usage
 =====
 
-Please see the SDK documentaiton for your favored language for more information about how to include *DataSource* in your codebase.
+Please see the SDK documentation for your favored language for more information about how to include *DataSource* in your codebase.
 
 If you wish to test a particular *DataSource* API directly, you may go to the base url for the application. For example, if you go to https://sfdatasource.com you will be presented with a user interface provided by ApolloServer.
 
@@ -14,7 +17,7 @@ On the right hand side of the UI is a fold-out section for "schema" and "docs". 
 Basic Query
 ***********
 
-When querying data, you may wish to get a complete list of all entries in a table. To do so you *must* specify both the table name you are querying, and the content you wish to retrieve. You can see more about the available content in the "Structures" section of this documentation, or in the 'schema' section of the UI that corresponds to the object that is returned by your query.
+When querying data, you may wish to get a complete list of all entries in a table. To do so you *must* specify both the table name you are querying, and the content you wish to retrieve. You can see more about the available content in :ref:`structures`, or in the 'schema' section of the UI that corresponds to the object that is returned by your query.
 
 For example, if we look at the UI 'docs' section for the ``armor`` entry, we will see that it returns an object called ``Armor``, while the ``weapons`` entry returns an object called ``Weapon``. We can then click over to the UI 'schema' and find the ``Armor`` or ``Weapon`` entry to see what data is available for that object.
 
@@ -45,7 +48,7 @@ Your query may include multiple queries within it. To do that, we can simply ext
 
 This will give us a list of names from all 'armor' rows, and then a second entry with the same from 'weapons'.
 
-By adding another entry below 'name', we can get more data from the column. Available columns may be seen in the UI 'schema' or in the documentation here under "Structures".
+By adding another entry below 'name', we can get more data from the column. Available columns may be seen in the UI 'schema' or in :ref:`structures`.
 
 For example:
 
@@ -220,7 +223,7 @@ The above query will return the following content (snippet):
 Supporting Tables (indirect relationships)
 ------------------------------------------
 
-Unlike foreign keys, which are present in the data table, some relatioships come from information in other tables. As noted in the "Structures" and "Relationships" sections of this documentation, we can still access those relationships in our standard query.
+Unlike foreign keys, which are present in the data table, some relatioships come from information in other tables. As noted in the :ref:`structures` and :ref:`relationships`, we can still access those relationships in our standard query.
 
 For example, *sfdatasource* ``classes`` have a many-to-many relationship in their "class_features", where classes have many feats, and some feats are referenced by many classes.
 

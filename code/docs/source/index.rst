@@ -14,6 +14,7 @@ Welcome to DataSource's documentation!
    usage
    structures
    relationships
+   sdks
 
 Indices and tables
 ==================
